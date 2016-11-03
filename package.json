@@ -1,0 +1,18 @@
+{
+  "name": "udder",
+  "version": "1.0.0",
+  "description": "This is my description",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "lint": "tslint \"src/**/*.ts\"",
+    "package": "cp -R node_modules/ dist/main/node_modules && pushd dist/main && zip -x *.git/* -x *.json -x *.txt -x *.swp -x *.gitignore -x *.sh -r Udder.zip . &&  popd",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "update-lambda-function": "aws lambda update-function-code --function-name UtterUnderstanding --zip-file fileb://./dist/main/Udder.zip"
+  },
+  "author": "Steve Wagner",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "utter-understanding": "git+https://github.com/ciroque/alexa-utter-understanding.git"
+  }
+}
