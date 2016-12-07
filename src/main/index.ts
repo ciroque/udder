@@ -28,20 +28,20 @@ export class MyPostProcessHandler extends RequestPostProcessor {
     }
 }
 
+let myPreProcessor = new MyPreProcessor('MyPreProcessor');
+let myHelpHandler = new MyAmazonHelpIntentHandler('MyAmazonHelpIntentHandler');
+let myRequestHandler = new IntentRequestHandler();
+let myPostProcessHandler = new MyPostProcessHandler('MyPostProcessHandler');
+
+myRequestHandler.registerIntentHandler(AmazonIntentNames.HelpIntent, myHelpHandler);
+
+
+let utter = new UtterUnderstanding();
+utter.registerPreProcessHandler(myPreProcessor);
+utter.registerRequestHandler(RequestNames.IntentRequest, myRequestHandler);
+utter.registerPostProcessHandler(myPostProcessHandler);
+
 export function handler(event: any, context: any) {
-    let myPreProcessor = new MyPreProcessor('MyPreProcessor');
-    let myHelpHandler = new MyAmazonHelpIntentHandler('MyAmazonHelpIntentHandler');
-    let myRequestHandler = new IntentRequestHandler();
-    let myPostProcessHandler = new MyPostProcessHandler('MyPostProcessHandler');
-
-    myRequestHandler.registerIntentHandler(AmazonIntentNames.HelpIntent, myHelpHandler);
-
-
-    let utter = new UtterUnderstanding();
-    utter.registerPreProcessHandler(myPreProcessor);
-    utter.registerRequestHandler(RequestNames.IntentRequest, myRequestHandler);
-    utter.registerPostProcessHandler(myPostProcessHandler);
-
     utter
         .handleRequest(event, context)
         .then((response: any) => {
